@@ -1,0 +1,62 @@
+# The following types define the data model of the example service
+# based on which the GraphQL API is generated
+
+type User @model {
+  id: ID! @isUnique
+  name: String
+  dateOfBirth: DateTime
+
+  # Uncomment below - you can declare relations between models like this
+
+  # posts: [Post!]! @relation(name: "UserPosts")
+}
+
+
+# Uncomment the model below as well
+
+# type Post @model {
+#   id: ID! @isUnique
+#   title: String!
+#
+#   # Every relation also required a back-relation (to determine 1:1, 1:n or n:m)
+#   author: User! @relation(name: "UserPosts")
+# }
+type  Mind @model {
+  id: ID! @isUnique
+  title: String @isUnique
+  cat: String
+  url: String
+  img: String
+  brief:String
+  meta:String
+  content:Content @relation(name:"ContentOfMind")
+  
+}
+
+type Content @model{
+  id:Id! @isUnique
+  category:String!
+  title:String
+  img:String
+  content:String 
+  authoradhoc:String
+  authorname:String
+  authordesc:String
+  mind:Mind @relation(name:"ContentOfMind")
+}
+
+
+type File @model {
+  id:Id! @isUnique
+  myFile: MyFile @relation(name: "FileConnection")
+}
+
+type MyFile @model {
+  id:Id! @isUnique
+  file: File @relation(name: "FileConnection")
+  contentType: String
+  name: String
+  secret: String @isUnique
+  size: Int
+  url: String @isUnique
+}
